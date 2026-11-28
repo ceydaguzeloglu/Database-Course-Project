@@ -1,3 +1,4 @@
+-- ceyda
 -- step 1: create our database if it doesn't exist yet
 CREATE DATABASE IF NOT EXISTS CinemaTicketSystem;
 
@@ -23,4 +24,23 @@ CREATE TABLE IF NOT EXISTS Ticket (
     price DECIMAL(10,2) NOT NULL,
     sale_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (customer_id) REFERENCES Customer(customer_id) ON DELETE CASCADE
+);
+
+-- defne
+-- Category table
+CREATE TABLE IF NOT EXISTS Category (
+    category_id INT PRIMARY KEY AUTO_INCREMENT,
+    category_name VARCHAR(50) NOT NULL UNIQUE
+);
+
+-- Movie table
+CREATE TABLE IF NOT EXISTS Movie (
+    movie_id INT PRIMARY KEY AUTO_INCREMENT,
+    category_id INT NOT NULL,
+    title VARCHAR(150) NOT NULL,
+    duration_minutes INT NOT NULL,
+    release_year YEAR,
+    CONSTRAINT chk_movie_duration CHECK (duration_minutes > 0),
+    CONSTRAINT fk_movie_category FOREIGN KEY (category_id)
+        REFERENCES Category(category_id)
 );
